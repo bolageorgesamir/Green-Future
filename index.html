@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#14532d"><title>GREEN FUTURE | SMART FARM</title>
+<style>
+:root{--green:#187344;--deep:#103b2a;--mint:#e5f5e9;--bg:#f3f7f2;--ink:#173326;--muted:#66776c;--line:#dfe9df;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:16px/1.6 Arial,sans-serif;color:var(--ink)}
+header{background:linear-gradient(120deg,#103b2a,#21804c);color:white;padding:22px 5vw 30px}
+.top{max-width:1100px;margin:auto;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.brand{font-size:22px;font-weight:800}.welcome{font-size:14px;color:#e5f5e9}
+main{max-width:1100px;margin:auto;padding:22px 5vw 55px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:0 auto 22px;max-width:1100px;padding:0 5vw}
+nav button{background:#e3f1e6;color:var(--deep)}nav button.active{background:var(--green);color:#fff}
+button,.link{border:0;border-radius:11px;padding:11px 15px;background:var(--green);color:#fff;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block;margin:3px}
+button.secondary{background:#e3f1e6;color:var(--deep)}
+input,textarea{width:100%;padding:12px;border:1px solid #cbd9cc;border-radius:11px;margin:5px 0 12px;font:inherit}
+.card{background:white;border:1px solid var(--line);border-radius:17px;padding:18px;box-shadow:0 4px 16px #103b2a0a}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:16px 0}
+h1,h2,h3{color:var(--deep);line-height:1.25}header h1{color:white;margin:28px 0 4px;font-size:clamp(30px,6vw,48px)}header p{margin:0;color:#e5f5e9}
+.hidden{display:none!important}.muted,.small{color:var(--muted);font-size:14px}
+.plant{cursor:pointer;transition:.15s}.plant:hover{transform:translateY(-2px);border-color:#8dbb99}
+.bigicon{font-size:34px}.pill{background:var(--mint);padding:4px 9px;border-radius:20px;font-size:12px;color:var(--deep);display:inline-block}
+.notice{background:#fff8e7;border:1px solid #f0dfa9;padding:12px;border-radius:12px;color:#66501b;margin:12px 0}
+.detailbox{margin-top:15px}.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:180px}
+footer{text-align:center;background:var(--deep);color:#e5f5e9;padding:20px}
+#auth{max-width:440px;margin:8vh auto;padding:26px}#auth h1{margin-top:0}
+@media(max-width:600px){nav{padding:0 4vw}main{padding:18px 4vw 45px}}
+</style>
+</head>
+<body>
+<section id="auth" class="card">
+  <div class="bigicon">🌱</div><h1>GREEN FUTURE</h1><h3>SMART FARM</h3>
+  <p class="muted">Create your account or sign in to open your farm dashboard.</p>
+  <div id="registerBox">
+    <h3>Create account</h3><label>Your name</label><input id="regName" placeholder="Enter your name" autocomplete="name">
+    <label>Password</label><input id="regPass" type="password" placeholder="Create a password" autocomplete="new-password">
+    <button onclick="register()">Create account</button>
+    <p class="small">Already have an account? <a href="#" onclick="showLogin();return false">Sign in</a></p>
+  </div>
+  <div id="loginBox" class="hidden">
+    <h3>Welcome back</h3><label>Your name</label><input id="loginName" placeholder="Enter your name" autocomplete="username">
+    <label>Password</label><input id="loginPass" type="password" placeholder="Enter your password" autocomplete="current-password">
+    <button onclick="login()">Enter Smart Farm</button>
+    <p class="small">New here? <a href="#" onclick="showRegister();return false">Create account</a></p>
+  </div>
+  <p id="authMsg" class="small" role="status"></p>
+  <div class="notice">Simple local account: your account is saved in this browser on this device. It will not automatically transfer to another phone or computer. Do not use a password you use for other important accounts.</div>
+</section>
+
+<div id="app" class="hidden">
+<header><div class="top"><div class="brand">🌿 GREEN FUTURE</div><div class="welcome">Smart Farm • Welcome, <b id="userLabel"></b> <button class="secondary" onclick="logout()">Log out</button></div></div>
+<h1>SMART FARM</h1><p>Your simple guide to plants, tools, and everyday farm tasks.</p></header>
+<nav id="mainNav">
+<button class="active" data-page="home" onclick="go('home',this)">Home</button>
+<button data-page="plants" onclick="go('plants',this)">Plants</button>
+<button data-page="tools" onclick="go('tools',this)">Farming Tools</button>
+<button data-page="search" onclick="go('search',this)">Farm Search</button>
+<button data-page="ai" onclick="go('ai',this)">Farmer AI</button>
+<button data-page="guide" onclick="go('guide',this)">Farm Guide</button>
+</nav>
+<main>
+<section id="page-home" class="page">
+<h2>Welcome to your farm 🌱</h2><p class="muted">Choose a section from the menu. Everything is organized in separate pages to make it easy to use.</p>
+<div class="grid">
+<div class="card"><div class="bigicon">🌿</div><h3>Plants</h3><p>Discover plants, their benefits, food uses, and how to grow them.</p><button onclick="goByName('plants')">Open Plants</button></div>
+<div class="card"><div class="bigicon">🧰</div><h3>Farming Tools</h3><p>Learn what each tool does and where you can look for it.</p><button onclick="goByName('tools')">Open Tools</button></div>
+<div class="card"><div class="bigicon">🔎</div><h3>Farm Search</h3><p>Search for a farm task and follow easy steps.</p><button onclick="goByName('search')">Search Tasks</button></div>
+<div class="card"><div class="bigicon">🤖</div><h3>Farmer AI</h3><p>Ask basic questions about growing and caring for plants.</p><button onclick="goByName('ai')">Ask Farmer AI</button></div>
+</div>
+</section>
+
+<section id="page-plants" class="page hidden">
+<h2>🌿 Plants Library</h2><p class="muted">Select any plant to read about its benefits, food uses, and growing method.</p>
+<div class="grid" id="plantGrid"></div>
+<div id="plantDetail" class="card detailbox hidden"></div>
+</section>
+
+<section id="page-tools" class="page hidden">
+<h2>🧰 Farming Tools</h2><p class="muted">What each tool is used for, plus websites where you can search for it.</p>
+<div class="grid">
+<div class="card"><div class="bigicon">🪴</div><h3>Hand trowel</h3><p>Small shovel for digging planting holes, moving soil, and planting seedlings.</p><a class="link" target="_blank" rel="noopener" href="https://gardenhub-eg.com/product-category/equipment-and-tools/">Find tools — Garden Hub</a></div>
+<div class="card"><div class="bigicon">🚿</div><h3>Watering can</h3><p>Gives seedlings and pots a gentle flow of water.</p><a class="link" target="_blank" rel="noopener" href="https://www.carrefouregypt.com/">Search Carrefour</a></div>
+<div class="card"><div class="bigicon">✂️</div><h3>Pruning shears</h3><p>Used to trim small stems and remove dry or damaged growth. Use carefully with adult guidance.</p><a class="link" target="_blank" rel="noopener" href="https://gardeningegypt.com/">Search Gardening Egypt</a></div>
+<div class="card"><div class="bigicon">🧤</div><h3>Gardening gloves</h3><p>Help protect hands from dirt and rough surfaces while gardening.</p><a class="link" target="_blank" rel="noopener" href="https://harraz.shop/Shop/">Search Harraz</a></div>
+<div class="card"><div class="bigicon">🪴</div><h3>Pots and seed trays</h3><p>Containers for starting seeds and growing plants in small spaces.</p><a class="link" target="_blank" rel="noopener" href="https://gardenhub-eg.com/">Search Garden Hub</a></div>
+<div class="card"><div class="bigicon">🪣</div><h3>Compost and soil mix</h3><p>Growing medium and mature compost can improve soil structure when suitable for the crop.</p><a class="link" target="_blank" rel="noopener" href="https://harraz.shop/Shop/">Search Harraz</a></div>
+</div><div class="notice">These are store search links, not a guarantee that a specific item is in stock. Check the product, price, and delivery details before buying.</div>
+</section>
+
+<section id="page-search" class="page hidden">
+<h2>🔎 Farm Search</h2><p class="muted">Type what you want to do in the farm, such as planting seeds or watering plants.</p>
+<input id="taskSearch" placeholder="Search: sow seeds, water plants, prepare soil..." oninput="searchTasks()"><div id="taskResults"></div>
+</section>
+
+<section id="page-ai" class="page hidden">
+<h2>🤖 Farmer AI</h2><p class="muted">Ask a question about plants, soil, watering, or gardening.</p>
+<div class="card"><div id="chat" style="min-height:100px;max-height:320px;overflow:auto;background:#f7fbf7;padding:12px;border-radius:12px"><p><b>Farmer AI:</b> Hello! Ask me about planting, watering, soil, or plant care.</p></div>
+<textarea id="question" placeholder="Type your question..."></textarea><button onclick="askAI()">Send question</button><button class="secondary" onclick="document.getElementById('chat').innerHTML=''">Clear chat</button>
+<p class="small">This is an offline demo assistant with prepared guidance, not a live AI service yet.</p></div>
+</section>
+
+<section id="page-guide" class="page hidden">
+<h2>📘 Simple Farm Guide</h2><div class="grid">
+<div class="card"><h3>1. Choose a plant</h3><p>Choose a crop suitable for your climate, space, and season.</p></div>
+<div class="card"><h3>2. Prepare the soil</h3><p>Use suitable soil with good drainage and remove large stones or weeds.</p></div>
+<div class="card"><h3>3. Plant carefully</h3><p>Follow the seed packet for planting depth and spacing.</p></div>
+<div class="card"><h3>4. Water correctly</h3><p>Check soil moisture and avoid leaving roots in standing water.</p></div>
+<div class="card"><h3>5. Give enough light</h3><p>Check each plant's sunlight needs; some crops prefer cooler or partly shaded conditions.</p></div>
+<div class="card"><h3>6. Observe and harvest</h3><p>Watch for changes and harvest when the crop reaches its usual maturity.</p></div>
+</div></section>
+</main><footer>GREEN FUTURE — SMART FARM</footer>
+</div>
+
+<script>
+const ACCOUNTS='gf_accounts_v1', SESSION='gf_session_v1';
+const plants=[
+{name:'Tomato',icon:'🍅',benefit:'Tomatoes provide vitamins such as vitamin C and are used in many everyday meals.',eat:'They can be eaten fresh in salads or cooked in sauces, soups, and stews. Wash before eating.',grow:'Start seeds in a small tray, keep the mix lightly moist, and move healthy seedlings to a sunny place after they are strong. Use well-drained soil, water near the base, and provide support as the plant grows.',season:'In Egypt, suitable planting windows vary by region and variety; autumn and spring are common periods.'},
+{name:'Cucumber',icon:'🥒',benefit:'Cucumber contains plenty of water and is commonly eaten as a fresh vegetable.',eat:'Wash and eat fresh in salads or sandwiches; it can also be pickled.',grow:'Sow seeds in warm soil in a sunny place. Leave space for vines or provide a support frame. Keep soil evenly moist and ensure good drainage.',season:'Usually grown in warm periods; local timing depends on the area.'},
+{name:'Lettuce',icon:'🥬',benefit:'Lettuce provides fiber and is a common leafy vegetable.',eat:'Wash leaves well and eat fresh in salads or sandwiches.',grow:'Sow shallowly in loose soil. Keep soil moist and give the plant cooler conditions; protect it from strong heat.',season:'Best suited to cooler growing periods.'},
+{name:'Sweet pepper',icon:'🫑',benefit:'Sweet peppers contain vitamin C and add color and flavor to meals.',eat:'Wash and eat raw, stuff, roast, or cook in different dishes.',grow:'Start seeds in a warm protected place. Transplant strong seedlings into sunny, well-drained soil. Water regularly without waterlogging.',season:'Warm-season crop; avoid extremes of heat and cold.'},
+{name:'Carrot',icon:'🥕',benefit:'Carrots contain beta-carotene, which the body can convert to vitamin A.',eat:'Wash and peel if desired; eat raw, roast, or add to soups and cooked meals.',grow:'Sow seeds directly into loose, stone-free soil. Cover lightly, keep the surface moist during germination, and thin seedlings so roots have room.',season:'Generally prefers cooler growing weather.'},
+{name:'Basil',icon:'🌿',benefit:'Basil is an aromatic herb used to add flavor to food.',eat:'Wash leaves and use fresh or cooked in sauces and salads.',grow:'Sow seeds shallowly in a pot or bed. Give it warmth, good light, and well-drained soil. Pinch growing tips to encourage branching.',season:'Warm weather is generally suitable.'},
+{name:'Mint',icon:'🍃',benefit:'Mint is an aromatic herb often used in drinks and food.',eat:'Wash leaves and add to drinks, salads, or cooked dishes.',grow:'Plant a small rooted cutting in moist but well-drained soil. Give bright light and keep it in a pot because it spreads quickly.',season:'Can grow for much of the year with suitable care.'},
+{name:'Fava bean',icon:'🫘',benefit:'Fava beans provide plant protein and fiber.',eat:'Cook thoroughly before eating; they are used in many traditional dishes.',grow:'Sow seeds directly in prepared soil. Space plants according to the seed packet, water moderately, and avoid waterlogged soil.',season:'A cool-season crop in Egypt.'}
+];
+const tasks=[
+{t:'Prepare soil',k:'soil prepare تجهيز التربة',s:'1. Remove weeds and large stones. 2. Loosen the soil gently. 3. Mix in mature compost if suitable. 4. Check that extra water can drain away.'},
+{t:'Plant seeds',k:'seed sow بذور زراعة',s:'1. Read the seed packet. 2. Fill a clean tray or pot with seed-starting mix. 3. Sow at the recommended depth. 4. Moisten gently. 5. Give suitable light and label the pot.'},
+{t:'Water plants',k:'water irrigation ري سقي',s:'1. Check the soil first. 2. Water near the soil, not constantly over leaves. 3. Water slowly until the root area is moist. 4. Let extra water drain. 5. Adjust for weather and plant type.'},
+{t:'Move seedlings',k:'transplant seedling شتلات نقل',s:'1. Choose a healthy seedling. 2. Water its tray. 3. Make a hole in the new place. 4. Lift carefully by the leaves. 5. Firm soil gently and water lightly.'},
+{t:'Make compost',k:'compost organic سماد عضوي',s:'1. Mix dry leaves or shredded cardboard with vegetable scraps. 2. Keep slightly moist. 3. Turn occasionally for air. 4. Do not add meat, dairy, oils, or pet waste. 5. Use when dark and crumbly.'},
+{t:'Check plant health',k:'yellow leaves pests disease مرض اصفرار',s:'1. Look at both sides of leaves. 2. Check soil moisture and drainage. 3. Note which plants are affected. 4. Keep tools clean. 5. Ask a local agricultural specialist before using any treatment.'}
+];
+function readAccounts(){try{return JSON.parse(localStorage.getItem(ACCOUNTS)||'{}')}catch(e){return {}}}
+async function hashPassword(p){if(!window.crypto||!crypto.subtle)throw new Error('Please open this app using its secure HTTPS website to create an account.');const data=new TextEncoder().encode(p);const hash=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(hash)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+function showLogin(){document.getElementById('registerBox').classList.add('hidden');document.getElementById('loginBox').classList.remove('hidden');document.getElementById('authMsg').textContent=''}
+function showRegister(){document.getElementById('loginBox').classList.add('hidden');document.getElementById('registerBox').classList.remove('hidden');document.getElementById('authMsg').textContent=''}
+async function register(){const name=document.getElementById('regName').value.trim(),pass=document.getElementById('regPass').value;if(name.length<2||pass.length<4){document.getElementById('authMsg').textContent='Enter your name and a password with at least 4 characters.';return}try{const a=readAccounts(),key=name.toLowerCase();if(a[key]){document.getElementById('authMsg').textContent='This name already has an account. Please sign in.';showLogin();document.getElementById('loginName').value=name;return}a[key]={name,hash:await hashPassword(pass)};localStorage.setItem(ACCOUNTS,JSON.stringify(a));localStorage.setItem(SESSION,name);openApp(name)}catch(e){document.getElementById('authMsg').textContent=e.message}}
+async function login(){const name=document.getElementById('loginName').value.trim(),pass=document.getElementById('loginPass').value,a=readAccounts(),u=a[name.toLowerCase()];if(!u){document.getElementById('authMsg').textContent='Account not found. Create an account first.';return}try{if(await hashPassword(pass)!==u.hash){document.getElementById('authMsg').textContent='Incorrect password. Try again.';return}localStorage.setItem(SESSION,u.name);openApp(u.name)}catch(e){document.getElementById('authMsg').textContent=e.message}}
+function openApp(name){document.getElementById('auth').classList.add('hidden');document.getElementById('app').classList.remove('hidden');document.getElementById('userLabel').textContent=name;renderPlants()}
+function logout(){localStorage.removeItem(SESSION);document.getElementById('app').classList.add('hidden');document.getElementById('auth').classList.remove('hidden');showLogin()}
+function go(page,btn){document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));document.getElementById('page-'+page).classList.remove('hidden');document.querySelectorAll('#mainNav button').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');else{const b=document.querySelector(`#mainNav button[data-page="${page}"]`);if(b)b.classList.add('active')}}
+function goByName(p){go(p)}
+function renderPlants(){document.getElementById('plantGrid').innerHTML=plants.map((p,i)=>`<div class="card plant" onclick="showPlant(${i})"><div class="bigicon">${p.icon}</div><h3>${p.name}</h3><span class="pill">Tap to learn more</span></div>`).join('')}
+function showPlant(i){const p=plants[i],d=document.getElementById('plantDetail');d.classList.remove('hidden');d.innerHTML=`<div class="bigicon">${p.icon}</div><h2>${p.name}</h2><h3>Benefits</h3><p>${p.benefit}</p><h3>How to eat it</h3><p>${p.eat}</p><h3>How to grow it</h3><p>${p.grow}</p><h3>Planting time</h3><p>${p.season}</p>`;d.scrollIntoView({behavior:'smooth',block:'start'})}
+function searchTasks(){const q=document.getElementById('taskSearch').value.trim().toLowerCase(),box=document.getElementById('taskResults');if(!q){box.innerHTML='';return}const hits=tasks.filter(t=>(t.t+' '+t.k).toLowerCase().includes(q));box.innerHTML=hits.length?hits.map(t=>`<div class="card" style="margin:10px 0"><h3>${t.t}</h3><p>${t.s}</p></div>`).join(''):'<p class="muted">No match yet. Try soil, seeds, water, seedlings, compost, or plant health.</p>'}
+function askAI(){const inp=document.getElementById('question'),q=inp.value.trim();if(!q)return;const chat=document.getElementById('chat');const u=document.createElement('p');u.textContent='You: '+q;chat.appendChild(u);const l=q.toLowerCase();let answer='I can answer basic questions about preparing soil, planting seeds, watering, moving seedlings, compost, and plant health. Try asking about one of these topics.';const match=tasks.find(t=>(t.t+' '+t.k).toLowerCase().split(' ').some(w=>w.length>3&&l.includes(w)));if(match)answer=match.t+': '+match.s;else if(l.includes('tomato')||l.includes('طماطم'))answer='Tomatoes need sunlight, well-drained soil, steady watering, and support as they grow. Avoid waterlogged soil.';else if(l.includes('mint')||l.includes('نعناع'))answer='Mint likes bright light and lightly moist soil. A pot is useful because mint spreads quickly.';const b=document.createElement('p');b.textContent='Farmer AI: '+answer;chat.appendChild(b);inp.value='';chat.scrollTop=chat.scrollHeight}
+const existing=localStorage.getItem(SESSION);if(existing&&readAccounts()[existing.toLowerCase()])openApp(existing);
+</script>
+</body></html>
